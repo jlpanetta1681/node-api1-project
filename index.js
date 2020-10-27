@@ -29,7 +29,7 @@ app.get('http://localhost5001/api/users/:id', (req, res) => {
 	// 3- set status code and send back the user
 	if (!user) {
 		res.status(404).json({
-			message: `No user with id ${id}`,
+			message: `{ message: "The user with the specified ID does not exist." }`,
 		});
 	} else {
 		res.status(200).json(user);
@@ -37,14 +37,14 @@ app.get('http://localhost5001/api/users/:id', (req, res) => {
 });
 
 // [POST] user using the request body as raw material
-app.post('/api/users ', (req, res) => {
+app.post('/api/users', (req, res) => {
 	// 1- pull out the { name, bio } from the body of req
 	const { name, bio } = req.body;
 	// 2- make sure the body includes name and bio
 	if (!name || !bio) {
-		res.status(400).json({
-			Message: `Please provide name and bio for the user`,
-		});
+		res.status(400).json(
+			`{ errorMessage: "Please provide name and bio for the user." }`
+		);
 	} else {
 		// 3- make a new resource, complete with unique id
 		const newUser = { id: generate(), name, bio };
@@ -64,19 +64,19 @@ app.put('/api/users/:id', (req, res) => {
 	// 3- validate id and validate req body
 	const indexOfUser = users.findIndex((user) => user.id === id);
 	// 4- find the user and swap bio and name
-	if (indexOfDog !== -1) {
+	if (indexOfUser !== -1) {
 		users[indexOfUser] = { id, name, bio };
 		// 5- send back the updated dog
 		res.status(200).json({ id, name, bio });
 	} else {
 		res.status(404).json({
-			message: `No dog with id ${id}`,
+			message: `No user with id ${id}`,
 		});
 	}
 });
 
 // [DELETE] remove user with given id in the params
-app.delete('/dogs/:id', (req, res) => {
+app.delete('/users/:id', (req, res) => {
 	// 1- find user by the given id
 	// 2- remove it from the users array
 	// 3- send back something
@@ -90,11 +90,10 @@ app.delete('/dogs/:id', (req, res) => {
 				message: `User with id ${id} got deleted!`,
 			});
 		}
-		// if there is a crash here
-		// instead of the app blowing up
-		// the block inside the catch will run
 	} catch (error) {
-		res.status(500).json({ message: 'Somethign went really bad' });
+		res.status(500).json({
+			message: 'there was an error retrieving the data',
+		});
 	}
 });
 

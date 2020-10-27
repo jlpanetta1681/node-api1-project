@@ -16,5 +16,8 @@
 	"bugs": {
 		"url": "https://github.com/jlpanetta1681/node-api1-project/issues"
 	},
-	"homepage": "https://github.com/jlpanetta1681/node-api1-project#readme"
+	"homepage": "https://github.com/jlpanetta1681/node-api1-project#readme",
+	"dependencies": {
+		"cors": "^2.8.5"
+	}
 }
