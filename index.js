@@ -59,18 +59,18 @@ app.post('/api/users', (req, res) => {
 app.put('/api/users/:id', (req, res) => {
 	// 1- pull id from params
 	const { id } = req.params;
-	// 2- pull name and breed from body
+	// 2- pull name and biofrom body
 	const { name, bio } = req.body;
 	// 3- validate id and validate req body
 	const indexOfUser = users.findIndex((user) => user.id === id);
 	// 4- find the user and swap bio and name
 	if (indexOfUser !== -1) {
 		users[indexOfUser] = { id, name, bio };
-		// 5- send back the updated dog
+		// 5- send back the updated user
 		res.status(200).json({ id, name, bio });
 	} else {
 		res.status(404).json({
-			message: `No user with id ${id}`,
+			message: `{ message: "The user with id ${id} could noty be modified}`,
 		});
 	}
 });
